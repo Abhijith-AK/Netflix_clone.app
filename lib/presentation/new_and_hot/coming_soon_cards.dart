@@ -3,7 +3,23 @@ import 'package:flutter/material.dart';
 import '../../core/constants.dart';
 
 class ComingSoonCards extends StatelessWidget {
-  const ComingSoonCards({super.key});
+  final String id;
+  final String month;
+  final String day;
+  final String backDropPath;
+  final String movieTitle;
+  final String overView;
+  final String date;
+
+  const ComingSoonCards(
+      {super.key,
+      required this.id,
+      required this.month,
+      required this.day,
+      required this.backDropPath,
+      required this.movieTitle,
+      required this.overView,
+      required this.date});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +35,16 @@ class ComingSoonCards extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  "FEB",
-                  style: TextStyle(
+                  month.toUpperCase(),
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  "11",
-                  style: TextStyle(
+                  day,
+                  style: const TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
                   ),
@@ -45,34 +61,39 @@ class ComingSoonCards extends StatelessWidget {
                 SizedBox(
                   width: Dwidth - 50,
                   height: Dwidth - 150,
-                  child: const Image(
-                    image: NetworkImage(
-                        "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/dsxpP9qbF1PHk4j4aPjimkLTwxq.jpg"),
+                  child: Image(
+                    image: NetworkImage(backDropPath),
                     fit: BoxFit.cover,
                   ),
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Height,
-                        Text(
-                          "TITLE",
-                          style: TextStyle(
-                              fontSize: 35, fontWeight: FontWeight.bold),
-                        ),
-                        Height,
-                        Text(
-                          "Coming soon ..",
-                          style: TextStyle(
-                            fontSize: 16,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Height,
+                          FittedBox(
+                            child: Text(
+                              movieTitle,
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              style: const TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        )
-                      ],
+                          Height,
+                          Text(
+                            "Coming on $date ",
+                            style: const TextStyle(
+                              fontSize: 15,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
@@ -112,14 +133,16 @@ class ComingSoonCards extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Title",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                      movieTitle,
+                      style: const TextStyle(
+                          fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     Height,
                     Text(
-                      "hsakhdkfgesgfkwehfhfhdsfhsf fsdajk s hdkjshhsjd hes hw hehiewhoigoiew wg  hgrewiue u hgwehu ugwhuehrwu haw ei ihriuh iewewrk ferreuih hrih wurehh uhur huhr hhreuhhwe wiu    HRWUH HSAH EWWE  H EWKRFHIU ",
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      overView,
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontSize: 15, color: Colors.grey),
                     )
                   ],
                 )

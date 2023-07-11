@@ -21,6 +21,7 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
 
   DownloadsBloc(this._downloadsRepo) : super(DownloadsState.initial()) {
     on<_GetDownloadsImage>((event, emit) async {
+      
       emit(
         state.copyWith(
           isLoading: true,

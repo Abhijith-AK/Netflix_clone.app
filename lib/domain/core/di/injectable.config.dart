@@ -12,12 +12,15 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
-import '../../../application/downloads/downloads_bloc.dart' as _i7;
-import '../../../application/search/search_bloc.dart' as _i8;
-import '../../../infrastructure/downloads/downloads_repo.dart' as _i4;
-import '../../../infrastructure/search/search_imp.dart' as _i6;
-import '../../downloads/i_downloads_repo.dart' as _i3;
-import '../../search/search_service.dart' as _i5;
+import '../../../application/downloads/downloads_bloc.dart' as _i10;
+import '../../../application/hot_and_new/hotandnew_bloc.dart' as _i5;
+import '../../../application/search/search_bloc.dart' as _i11;
+import '../../../infrastructure/downloads/downloads_repo.dart' as _i7;
+import '../../../infrastructure/hot_and_new/hot_and_new_imp.dart' as _i4;
+import '../../../infrastructure/search/search_imp.dart' as _i9;
+import '../../downloads/i_downloads_repo.dart' as _i6;
+import '../../hot_and_new/discover_movie_service.dart' as _i3;
+import '../../search/search_service.dart' as _i8;
 
 extension GetItInjectableX on _i1.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -30,13 +33,16 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.lazySingleton<_i3.IDownloads>(() => _i4.DownloadsRepo());
-    gh.lazySingleton<_i5.SearchSearvice>(() => _i6.SearchImp());
-    gh.factory<_i7.DownloadsBloc>(
-        () => _i7.DownloadsBloc(gh<_i3.IDownloads>()));
-    gh.factory<_i8.SearchBloc>(() => _i8.SearchBloc(
-          gh<_i3.IDownloads>(),
-          gh<_i5.SearchSearvice>(),
+    gh.lazySingleton<_i3.HotAndNewService>(() => _i4.HotAndNewImpl());
+    gh.factory<_i5.HotandnewBloc>(
+        () => _i5.HotandnewBloc(gh<_i3.HotAndNewService>()));
+    gh.lazySingleton<_i6.IDownloads>(() => _i7.DownloadsRepo());
+    gh.lazySingleton<_i8.SearchSearvice>(() => _i9.SearchImp());
+    gh.factory<_i10.DownloadsBloc>(
+        () => _i10.DownloadsBloc(gh<_i6.IDownloads>()));
+    gh.factory<_i11.SearchBloc>(() => _i11.SearchBloc(
+          gh<_i6.IDownloads>(),
+          gh<_i8.SearchSearvice>(),
         ));
     return this;
   }

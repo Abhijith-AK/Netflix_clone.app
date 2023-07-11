@@ -3,49 +3,62 @@ import 'package:flutter/material.dart';
 import '../../core/constants.dart';
 
 class EveryonesWatchingCards extends StatelessWidget {
-  const EveryonesWatchingCards({super.key});
+  final String backDropPath;
+  final String movieTitle;
+  final String overView;
+
+  const EveryonesWatchingCards({
+    super.key,
+    required this.backDropPath,
+    required this.movieTitle,
+    required this.overView,
+  });
 
   @override
   Widget build(BuildContext context) {
     double Dwidth = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
-      ),
+      padding: const EdgeInsets.all(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            width: Dwidth - 10,
+            width: Dwidth - 40,
             height: Dwidth + 100,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  width: Dwidth - 10,
+                  width: Dwidth - 40,
                   height: Dwidth - 150,
-                  child: const Image(
-                    image: NetworkImage(
-                        "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wRTZaxAiDP0ZEeQsO0HiiSqYCSp.jpg"),
+                  child: Image(
+                    image: NetworkImage(backDropPath),
                     fit: BoxFit.cover,
                   ),
                 ),
-                const Row(
+                Height,
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Height,
-                        Text(
-                          "TITLE",
-                          style: TextStyle(
-                              fontSize: 35, fontWeight: FontWeight.bold),
-                        ),
-                        Height,
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Height,
+                          FittedBox(
+                            child: Text(
+                              movieTitle,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: WhiteColor),
+                            ),
+                          ),
+                          Height,
+                        ],
+                      ),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Column(
@@ -57,7 +70,7 @@ class EveryonesWatchingCards extends StatelessWidget {
                             Text(
                               "Share",
                               style:
-                                  TextStyle(fontSize: 10, color: Colors.grey),
+                                  TextStyle(fontSize: 15, color: Colors.grey),
                             ),
                           ],
                         ),
@@ -72,7 +85,7 @@ class EveryonesWatchingCards extends StatelessWidget {
                             Text(
                               "Add to list",
                               style:
-                                  TextStyle(fontSize: 10, color: Colors.grey),
+                                  TextStyle(fontSize: 15, color: Colors.grey),
                             ),
                           ],
                         ),
@@ -87,7 +100,7 @@ class EveryonesWatchingCards extends StatelessWidget {
                             Text(
                               "Play",
                               style:
-                                  TextStyle(fontSize: 10, color: Colors.grey),
+                                  TextStyle(fontSize: 15, color: Colors.grey),
                             ),
                           ],
                         ),
@@ -100,13 +113,15 @@ class EveryonesWatchingCards extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Title",
+                      movieTitle,
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                     Height,
                     Text(
-                      "hsakhdkfgesgfkwehfhfhdsfhsf fsdajk s hdkjshhsjd hes hw hehiewhoigoiew wg  hgrewiue u hgwehu ugwhuehrwu haw ei ihriuh iewewrk ferreuih hrih wurehh uhur huhr hhreuhhwe wiu    HRWUH HSAH EWWE  H EWKRFHIU ",
+                      overView,
+                      maxLines: 7,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 15, color: Colors.grey),
                     )
                   ],

@@ -82,14 +82,14 @@ class TopSearchItemTiles extends StatelessWidget {
           child: Text(
             title,
             textAlign: TextAlign.justify,
-            style:const TextStyle(
+            style: const TextStyle(
               color: WhiteColor,
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
           ),
         ),
-       const Icon(
+        const Icon(
           Icons.play_circle_outline_sharp,
           color: WhiteColor,
           size: 30,
