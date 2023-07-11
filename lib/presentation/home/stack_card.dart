@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:netflix_app/core/constants.dart';
 
 class StackCard extends StatelessWidget {
-  const StackCard({super.key, required this.index});
+  const StackCard({super.key, required this.imageUrl, required this.index});
 
   final String index;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,8 @@ class StackCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     image: DecorationImage(
                   image: NetworkImage(
-                      "https://www.themoviedb.org/t/p/w220_and_h330_face/vIeu8WysZrTSFb2uhPViKjX9EcC.jpg"),
+                    imageUrl,
+                  ),
                   fit: BoxFit.cover,
                 )),
               ),

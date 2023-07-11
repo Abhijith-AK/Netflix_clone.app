@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_app/application/home_page/home_page_bloc.dart';
 import 'package:netflix_app/core/constants.dart';
 import 'package:netflix_app/presentation/home/Main_titles.dart';
 import 'package:netflix_app/presentation/home/stack_list.dart';
 import 'package:netflix_app/presentation/home/top_section.dart';
 
+import '../../application/downloads/downloads_bloc.dart';
 import '../../core/colors/colors.dart';
+import '../../core/strings.dart';
 import 'main_card.dart';
 import 'main_list.dart';
 
@@ -16,6 +20,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<HomePageBloc>(context).add(const GetHomeScreenData());
+      BlocProvider.of<DownloadsBloc>(context)
+          .add(const DownloadsEvent.getDownloadsImage());
+    });
+
     double Dwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -36,25 +46,56 @@ class HomeScreen extends StatelessWidget {
             },
             child: Stack(
               children: [
-                ListView(
-                  children: const [
-                    TopSection(),
-                    MainList(
-                      title: "Popular on Netflix",
-                    ),
-                    MainList(
-                      title: "Trending Now",
-                    ),
-                    StackList(
-                      title: "Top TV Shows in India",
-                    ),
-                    MainList(
-                      title: "Tense Dramas",
-                    ),
-                    MainList(
-                      title: "South Indian Cinema",
-                    ),
-                  ],
+                BlocBuilder<HomePageBloc, HomePageState>(
+                  builder: (context, state) {
+                    if (state.isLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state.hasError) {
+                      return const Center(
+                        child: Text('Error while fetching Data'),
+                      );
+                    } else
+                      final _releasedPastYear =
+                          state.pastYearMovieList.map((m) {
+                        return '$imageAppendUrl${m.posterPath}';
+                      }).toList();
+                    final _trendingNow = state.trendingNowList.map((m) {
+                      return '$imageAppendUrl${m.posterPath}';
+                    }).toList();
+                    final _releasedPastYear = state.pastYearMovieList.map((m) {
+                      return '$imageAppendUrl${m.posterPath}';
+                    }).toList();
+                    final _top10 = state.topTvShowsList.map((t) {
+                      return '$imageAppendUrl${t.posterPath}';
+                    }).toList();
+                    final _tenseDramas = state.tenseDramasList.map((m) {
+                      return '$imageAppendUrl${m.posterPath}';
+                    }).toList();
+                    final _southIndian = state.SouthIndianCinemaList.map((m) {
+                      return '$imageAppendUrl${m.posterPath}';
+                    }).toList();
+                    _southIndian.shuffle();
+                    _releasedPastYear.shuffle();
+                    _tenseDramas.shuffle();
+                    _trendingNow.shuffle();
+                    return ListView(
+                      children: [
+                        TopSection(),
+                        MainList(
+                            title: "Popular on Netflix",
+                            imageUrl: _releasedPastYear),
+                        MainList(title: "Trending Now", imageUrl: _trendingNow),
+                        StackList(
+                            title: "Top TV Shows in India", imageUrl: _top10),
+                        MainList(title: "Tense Dramas", imageUrl: _tenseDramas),
+                        MainList(
+                            title: "South Indian Cinema",
+                            imageUrl: _southIndian),
+                      ],
+                    );
+                  },
                 ),
                 scrollNot.value == true
                     ? AnimatedContainer(

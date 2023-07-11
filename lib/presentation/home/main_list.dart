@@ -4,8 +4,9 @@ import 'Main_titles.dart';
 import 'main_card.dart';
 
 class MainList extends StatelessWidget {
-  const MainList({super.key, required this.title});
+  const MainList({super.key, required this.title,required this.imageUrl});
   final String title;
+  final List<String> imageUrl;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,8 +20,8 @@ class MainList extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: List.generate(
-                10,
-                (index) => MainCard(),
+                imageUrl.length,
+                (index) => MainCard(imageUrl: imageUrl[index],),
               ),
             ),
           )

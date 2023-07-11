@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflix_app/core/constants.dart';
+import 'package:netflix_app/core/strings.dart';
+
+import '../../application/downloads/downloads_bloc.dart';
 
 class TopSection extends StatelessWidget {
   const TopSection({super.key});
@@ -10,14 +14,16 @@ class TopSection extends StatelessWidget {
 
     return Stack(
       children: [
-        Container(
-          width: Dwidth,
-          height: Dwidth * 1.65,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                      "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7gKI9hpEMcZUQpNgKrkDzJpbnNS.jpg"))),
+        BlocBuilder<DownloadsBloc, DownloadsState>(
+          builder: (context, state) {
+            return Container(
+              width: Dwidth,
+              height: Dwidth * 1.65,
+              decoration:  BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage('$imageAppendUrl${state.downloads?[0].posterPath}'))),
+            );
+          },
         ),
         Positioned(
           bottom: 0,

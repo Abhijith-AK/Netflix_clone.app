@@ -6,8 +6,10 @@ import 'Main_titles.dart';
 import 'main_card.dart';
 
 class StackList extends StatelessWidget {
-  const StackList({super.key, required this.title});
+  const StackList({super.key, required this.title, required this.imageUrl});
   final String title;
+  final List<String> imageUrl;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -21,9 +23,10 @@ class StackList extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: List.generate(
-                10,
+                imageUrl.length,
                 (index) => StackCard(
                   index: "$index",
+                  imageUrl: imageUrl[index],
                 ),
               ),
             ),

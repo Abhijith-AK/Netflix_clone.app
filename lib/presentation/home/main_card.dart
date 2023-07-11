@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MainCard extends StatelessWidget {
-  MainCard({super.key});
+  final String imageUrl;
+  MainCard({super.key,required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,8 @@ class MainCard extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
           image: NetworkImage(
-              "https://www.themoviedb.org/t/p/w220_and_h330_face/vIeu8WysZrTSFb2uhPViKjX9EcC.jpg"),
+            imageUrl,
+          ),
           fit: BoxFit.cover,
         )),
       ),
